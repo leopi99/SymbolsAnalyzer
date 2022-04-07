@@ -28,7 +28,7 @@ class WindowsHomepage extends StatelessWidget {
                 expands: true,
                 placeholder: "Insert here your stacktrace...",
                 controller: controller,
-                onSubmitted: (value) {
+                onChanged: (value) {
                   bloc.updateStacktrace(
                       trace!.copyWith(obfuscated: value), index);
                 },

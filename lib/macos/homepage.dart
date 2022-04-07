@@ -15,47 +15,70 @@ class MacOsHomepage extends StatelessWidget {
   Widget build(BuildContext context) {
     return MacosWindow(
       child: Flex(
-        direction: Axis.horizontal,
+        direction: Axis.vertical,
         children: [
           Flexible(
-            flex: 5,
-            child: StackTracesWidget(
-              bloc: bloc,
-              textFieldWidget: (trace, index) {
-                final controller =
-                    TextEditingController(text: trace?.obfuscated);
-                return MacosTextField(
-                  expands: true,
-                  minLines: null,
-                  maxLines: null,
-                  scrollPhysics: const BouncingScrollPhysics(),
-                  placeholder: "Insert here your stacktrace...",
-                  controller: controller,
-                  onSubmitted: (value) {
-                    bloc.updateStacktrace(
-                        trace!.copyWith(obfuscated: value), index);
+            flex: 1,
+            child: Row(
+              children: [
+                PushButton(
+                  child: const Text("Run deObfuscation"),
+                  buttonSize: ButtonSize.large,
+                  onPressed: () async {
+                    await bloc.deObfuscate();
                   },
-                );
-              },
+                ),
+              ],
             ),
           ),
           Flexible(
-            flex: 5,
-            child: StackTracesWidget(
-              bloc: bloc,
-              showAdd: false,
-              textFieldWidget: (trace, _) {
-                final controller =
-                    TextEditingController(text: trace?.deObfuscated);
-                return MacosTextField(
-                  expands: true,
-                  minLines: null,
-                  maxLines: null,
-                  scrollPhysics: const BouncingScrollPhysics(),
-                  placeholder: "Here you will find the deobfuscated stacktrace",
-                  controller: controller,
-                );
-              },
+            flex: 9,
+            child: Flex(
+              direction: Axis.horizontal,
+              children: [
+                Flexible(
+                  flex: 5,
+                  child: StackTracesWidget(
+                    bloc: bloc,
+                    textFieldWidget: (trace, index) {
+                      final controller =
+                          TextEditingController(text: trace?.obfuscated);
+                      return MacosTextField(
+                        expands: true,
+                        minLines: null,
+                        maxLines: null,
+                        scrollPhysics: const BouncingScrollPhysics(),
+                        placeholder: "Insert here your stacktrace...",
+                        controller: controller,
+                        onChanged: (value) {
+                          bloc.updateStacktrace(
+                              trace!.copyWith(obfuscated: value), index);
+                        },
+                      );
+                    },
+                  ),
+                ),
+                Flexible(
+                  flex: 5,
+                  child: StackTracesWidget(
+                    bloc: bloc,
+                    showAdd: false,
+                    textFieldWidget: (trace, _) {
+                      final controller =
+                          TextEditingController(text: trace?.deObfuscated);
+                      return MacosTextField(
+                        expands: true,
+                        minLines: null,
+                        maxLines: null,
+                        scrollPhysics: const BouncingScrollPhysics(),
+                        placeholder:
+                            "Here you will find the deobfuscated stacktrace",
+                        controller: controller,
+                      );
+                    },
+                  ),
+                ),
+              ],
             ),
           ),
         ],

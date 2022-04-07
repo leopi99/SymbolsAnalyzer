@@ -8,13 +8,13 @@ import 'package:rxdart/rxdart.dart';
 import 'package:symbols_analyzer/models/stacktrace.dart';
 
 class StackTraceBloc {
-  List<Stacktrace> _stacktraceList = [];
+  List<Stacktrace> _stacktraceList = [Stacktrace(index: 0)];
   // final Shell _shell = Shell();
   final String _tempDirPath;
-  late final _symbolDir;
+  late final String _symbolDir;
 
   final BehaviorSubject<List<Stacktrace>> _stacktraceSubject =
-      BehaviorSubject.seeded([]);
+      BehaviorSubject.seeded([Stacktrace(index: 0)]);
 
   Stream<List<Stacktrace>> get stacktraceStream => _stacktraceSubject.stream;
 
@@ -38,7 +38,7 @@ class StackTraceBloc {
                       allowedExtensions: [".symbols"],
                       allowMultiple: false,
                     );
-                    _symbolDir = result!.paths.first;
+                    _symbolDir = result!.paths.first!;
                     Navigator.pop(context);
                   },
                 ),
@@ -71,7 +71,7 @@ class StackTraceBloc {
                   allowedExtensions: [".symbols"],
                   allowMultiple: false,
                 );
-                _symbolDir = result!.paths.first;
+                _symbolDir = result!.paths.first!;
                 Navigator.pop(context);
               },
             ),
@@ -87,6 +87,7 @@ class StackTraceBloc {
   }
 
   Future<void> deObfuscate() async {
+    print("Length: ${_stacktraceList.length}");
     await _deObfuscateRecursion(0);
   }
 
@@ -95,7 +96,7 @@ class StackTraceBloc {
       final file = File("$_tempDirPath/obfuscated$index.txt");
       file.writeAsString(_stacktraceList[index].obfuscated!);
       final process = await Process.run(
-          "flutter symbolize -i ${file.path} -d $_symbolDir", []);
+          "flutter symbolize -i \"${file.absolute.path}\" -d \"$_symbolDir\"", []);
       _stacktraceList[index] =
           _stacktraceList[index].copyWith(deObfuscated: process.outText);
       await file.delete();
