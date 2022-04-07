@@ -71,6 +71,7 @@ class MacOsHomepage extends StatelessWidget {
                         minLines: null,
                         maxLines: null,
                         scrollPhysics: const BouncingScrollPhysics(),
+                        readOnly: true,
                         placeholder:
                             "Here you will find the deobfuscated stacktrace",
                         controller: controller,
