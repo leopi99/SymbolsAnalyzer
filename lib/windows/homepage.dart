@@ -12,52 +12,50 @@ class WindowsHomepage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Flex(
-        direction: Axis.horizontal,
-        children: [
-          Flexible(
-            flex: 5,
-            child: StackTracesWidget(
-              bloc: bloc,
-              textFieldWidget: (trace, index) {
-                final controller =
-                    TextEditingController(text: trace?.obfuscated);
-                return TextBox(
-                  maxLines: null,
-                  minLines: null,
-                  expands: true,
-                  placeholder: "Insert here your stacktrace...",
-                  controller: controller,
-                  onSubmitted: (value) {
-                    bloc.updateStacktrace(
-                        trace!.copyWith(obfuscated: value), index);
-                  },
-                );
-              },
-            ),
+    return Flex(
+      direction: Axis.horizontal,
+      children: [
+        Flexible(
+          flex: 5,
+          child: StackTracesWidget(
+            bloc: bloc,
+            textFieldWidget: (trace, index) {
+              final controller =
+                  TextEditingController(text: trace?.obfuscated);
+              return TextBox(
+                maxLines: null,
+                minLines: null,
+                expands: true,
+                placeholder: "Insert here your stacktrace...",
+                controller: controller,
+                onSubmitted: (value) {
+                  bloc.updateStacktrace(
+                      trace!.copyWith(obfuscated: value), index);
+                },
+              );
+            },
           ),
-          Flexible(
-            flex: 5,
-            child: StackTracesWidget(
-              bloc: bloc,
-              showAdd: false,
-              textFieldWidget: (trace, _) {
-                final controller =
-                    TextEditingController(text: trace?.deObfuscated);
-                return TextBox(
-                  maxLines: null,
-                  minLines: null,
-                  expands: true,
-                  placeholder: "Here you will find the deobfuscated stacktrace",
-                  readOnly: true,
-                  controller: controller,
-                );
-              },
-            ),
-          )
-        ],
-      ),
+        ),
+        Flexible(
+          flex: 5,
+          child: StackTracesWidget(
+            bloc: bloc,
+            showAdd: false,
+            textFieldWidget: (trace, _) {
+              final controller =
+                  TextEditingController(text: trace?.deObfuscated);
+              return TextBox(
+                maxLines: null,
+                minLines: null,
+                expands: true,
+                placeholder: "Here you will find the deobfuscated stacktrace",
+                readOnly: true,
+                controller: controller,
+              );
+            },
+          ),
+        )
+      ],
     );
   }
 }

@@ -9,7 +9,7 @@ import 'package:symbols_analyzer/models/stacktrace.dart';
 
 class StackTraceBloc {
   List<Stacktrace> _stacktraceList = [];
-  final Shell _shell = Shell();
+  // final Shell _shell = Shell();
   final String _tempDirPath;
   late final _symbolDir;
 
@@ -95,7 +95,7 @@ class StackTraceBloc {
       final file = File("$_tempDirPath/obfuscated$index.txt");
       file.writeAsString(_stacktraceList[index].obfuscated!);
       final process = await Process.run(
-          "flutter symbolize -i ${file.path} -d $_tempDirPath", []);
+          "flutter symbolize -i ${file.path} -d $_symbolDir", []);
       _stacktraceList[index] =
           _stacktraceList[index].copyWith(deObfuscated: process.outText);
       await file.delete();
