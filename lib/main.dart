@@ -4,9 +4,8 @@ import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:macos_ui/macos_ui.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:symbols_analyzer/bloc/stacktraces_bloc.dart';
-import 'package:symbols_analyzer/macos/homepage.dart';
-import 'package:symbols_analyzer/windows/homepage.dart';
+import 'package:symbols_analyzer/presentation/homepage/bloc/stacktraces_bloc.dart';
+import 'package:symbols_analyzer/presentation/homepage/homepage.dart';
 
 const _kAppName = "Symbols Analyzer";
 
@@ -42,7 +41,7 @@ class _MyAppState extends State<MyApp> {
             );
           }
           bloc ??= StackTraceBloc(snapshot.data!.path, context);
-          return WindowsHomepage(bloc: bloc!);
+          return Homepage(bloc: bloc!);
         },
       ),
     );
@@ -61,7 +60,7 @@ class _MyAppState extends State<MyApp> {
             );
           }
           bloc ??= StackTraceBloc(snapshot.data!.path, context);
-          return MacOsHomepage(bloc: bloc!);
+          return Homepage(bloc: bloc!);
         },
       ),
     );
