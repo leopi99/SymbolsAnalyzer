@@ -24,7 +24,7 @@ class Homepage extends StatelessWidget {
         direction: Axis.vertical,
         children: [
           Flexible(
-            flex: 1,
+            flex: 3,
             child: Row(
               children: [
                 Padding(
@@ -37,7 +37,7 @@ class Homepage extends StatelessWidget {
             ),
           ),
           Flexible(
-            flex: 15,
+            flex: 1405,
             child: StackTracesWidget(
               bloc: bloc,
               textFieldWidget: (trace, index) {

@@ -5,7 +5,7 @@
 // 'flutter create' template.
 
 // The application's name. By default this is also the title of the Flutter window.
-PRODUCT_NAME = symbol_analyzer
+PRODUCT_NAME = Symbol Analyzer
 
 // The application's bundle identifier
 PRODUCT_BUNDLE_IDENTIFIER = leonardopizio.symbolAnalyzer
