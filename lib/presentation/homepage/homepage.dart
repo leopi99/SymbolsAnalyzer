@@ -23,18 +23,15 @@ class Homepage extends StatelessWidget {
       child: Flex(
         direction: Axis.vertical,
         children: [
-          Flexible(
-            flex: 3,
-            child: Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Platform.isWindows
-                      ? _buildWindowsDeObfuscateButton()
-                      : _buildMacOsDeObfuscateButton(),
-                ),
-              ],
-            ),
+          Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Platform.isWindows
+                    ? _buildWindowsDeObfuscateButton()
+                    : _buildMacOsDeObfuscateButton(),
+              ),
+            ],
           ),
           Flexible(
             flex: 1405,
